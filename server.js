@@ -8,15 +8,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/pizza-hunt', {
-  useFindAndModify: false,
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social_circle', {
+  useFindAndModify: true,
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: false
 });
 
 // Use this to log mongo queries being executed!
 mongoose.set('debug', true);
 
-// app.use(require('./routes'));
+app.use(require('./routes'));
 
 app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));

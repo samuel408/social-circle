@@ -1,8 +1,8 @@
 const { Thoughts } = require('../models');
 
-const ThoughtController = {
-    // get all Thought
-  getAllThoughts(req, res) {
+const reactionController = {
+    // get all Reactions
+  getAllReactions(req, res) {
     Thoughts.find({})
       .populate({
         path: 'Thoughts',
@@ -10,52 +10,52 @@ const ThoughtController = {
       })
       .select('-__v')
       .sort({ _id: -1 })
-      .then(dbThoughtData => res.json(dbThoughtData))
+      .then(dbReactionData => res.json(dbReactionData))
       .catch(err => {
         console.log(err);
         res.sendStatus(400);
       });
   },
-  // get one Thought by id
-  getThoughtById({ params }, res) {
+  // get one Reactions by id
+  getReactionById({ params }, res) {
     Thoughts.findOne({ _id: params.id })
       .populate({
         path: 'Thoughts',
         select: '-__v'
       })
       .select('-__v')
-      .then(dbThoughtData => res.json(dbThoughtData))
+      .then(dbReactionData => res.json(dbReactionData))
       .catch(err => {
         console.log(err);
         res.sendStatus(400);
       });
   },
 
-  // createThought
-  createThought({ body }, res) {
+  // create Reactions
+  createReaction({ body }, res) {
     Thoughts.create(body)
-    .then(dbThoughtData => res.json(dbThoughtData))
+    .then(dbReactionData => res.json(dbReactionData))
     .catch(err => res.json(err));
   },
 
-// update Thought by id
-updateThought({ params, body }, res) {
+// update Reactions by id
+updateReaction({ params, body }, res) {
     Thoughts.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
-    .then(dbThoughtData => {
-      if (!dbThoughtData) {
+    .then(dbReactionData => {
+      if (!dbReactionData) {
         res.status(404).json({ message: 'No Thought found with this id!' });
         return;
       }
-      res.json(dbThoughtData);
+      res.json(dbReactionData);
     })
     .catch(err => res.status(400).json(err));
 },
 
 
-  // delete Thought
-  deleteThought({ params }, res) {
+  // delete Reactions
+  deleteReactions({ params }, res) {
     Thoughts.findOneAndDelete({ _id: params.id })
-    .then(dbThoughtData => res.json(dbThoughtData))
+    .then(dbReactionData => res.json(dbReactionData))
     .catch(err => res.json(err));
   }
 }

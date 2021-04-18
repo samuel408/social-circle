@@ -1,11 +1,11 @@
-const { Thoughts } = require('../models');
+const { Reaction } = require('../models');
 
 const reactionController = {
     // get all Reactions
   getAllReactions(req, res) {
-    Thoughts.find({})
+    Reaction.find({})
       .populate({
-        path: 'Thoughts',
+        path: 'Reactions',
         select: '-__v'
       })
       .select('-__v')
@@ -18,9 +18,9 @@ const reactionController = {
   },
   // get one Reactions by id
   getReactionById({ params }, res) {
-    Thoughts.findOne({ _id: params.id })
+    Reaction.findOne({ _id: params.id })
       .populate({
-        path: 'Thoughts',
+        path: 'Reactions',
         select: '-__v'
       })
       .select('-__v')
@@ -33,14 +33,14 @@ const reactionController = {
 
   // create Reactions
   createReaction({ body }, res) {
-    Thoughts.create(body)
+    Reaction.create(body)
     .then(dbReactionData => res.json(dbReactionData))
     .catch(err => res.json(err));
   },
 
 // update Reactions by id
 updateReaction({ params, body }, res) {
-    Thoughts.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+    Reaction.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
     .then(dbReactionData => {
       if (!dbReactionData) {
         res.status(404).json({ message: 'No Thought found with this id!' });
@@ -54,10 +54,10 @@ updateReaction({ params, body }, res) {
 
   // delete Reactions
   deleteReactions({ params }, res) {
-    Thoughts.findOneAndDelete({ _id: params.id })
+    Reaction.findOneAndDelete({ _id: params.id })
     .then(dbReactionData => res.json(dbReactionData))
     .catch(err => res.json(err));
   }
 }
 
-module.exports = ThoughtController;
+module.exports = reactionController;

@@ -5,7 +5,7 @@ const ThoughtController = {
   getAllThoughts(req, res) {
     Thoughts.find({})
       .populate({
-        path: 'Thoughts',
+        path: 'Users',
         select: '-__v'
       })
       .select('-__v')
@@ -20,7 +20,7 @@ const ThoughtController = {
   getThoughtById({ params }, res) {
     Thoughts.findOne({ _id: params.id })
       .populate({
-        path: 'Thoughts',
+        path: 'Users',
         select: '-__v'
       })
       .select('-__v')
@@ -59,5 +59,6 @@ updateThought({ params, body }, res) {
     .catch(err => res.json(err));
   }
 }
+
 
 module.exports = ThoughtController;
